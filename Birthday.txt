@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎂 Birthday Love Surprise! 💖</title>
+    <style>
+        body { 
+            text-align: center; 
+            font-family: Arial, sans-serif; 
+            padding: 50px; 
+            background: linear-gradient(120deg, #ff9a9e, #fad0c4); 
+            color: white;
+            overflow: hidden;
+            position: relative;
+        }
+        h1 { font-size: 2.5rem; animation: fadeIn 2s ease-in-out; }
+        button { 
+            font-size: 18px; padding: 12px 20px; margin: 10px; 
+            cursor: pointer; background-color: #ff4081; color: white; 
+            border: none; border-radius: 10px; 
+            transition: transform 0.3s, background 0.3s;
+        }
+        button:hover { background-color: #d81b60; transform: scale(1.1); }
+        .popup { 
+            position: fixed; top: 50%; left: 50%; 
+            transform: translate(-50%, -50%) scale(0.5);
+            background: white; color: black; padding: 20px; 
+            border-radius: 10px; box-shadow: 0 6px 12px rgba(0,0,0,0.3); 
+            display: none; opacity: 0; transition: opacity 0.5s, transform 0.3s;
+        }
+        .heart { position: absolute; color: red; font-size: 20px; animation: fall linear infinite; }
+        .firework { position: absolute; width: 10px; height: 10px; background: yellow; border-radius: 50%; animation: explode 1s ease-out; }
+        .photo { 
+            position: absolute; width: 100px; height: 100px; 
+            object-fit: cover; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fall { from { transform: translateY(-50px); opacity: 1; } to { transform: translateY(100vh); opacity: 0; } }
+        @keyframes explode { from { transform: scale(1); opacity: 1; } to { transform: scale(5); opacity: 0; } }
+    </style>
+</head>
+<body>
+
+    <h1>🎉 Happy Birthday My Love! 💖</h1>
+    <p id="countdown">⏳ Counting down to the big moment...</p>
+    <button onclick="showSurprise()">Click for a Love Surprise! 💕</button>
+    <button onclick="openLoveLetter()">💌 Read Your Love Letter</button>
+
+    <!-- Love Pop-Up Message -->
+    <div id="love-popup" class="popup">
+        <p id="popup-message">💖 You are my everything! Happy Birthday, my love! 💕</p>
+        <button onclick="closePopup()">Close</button>
+    </div>
+
+    <script>
+        let birthdayDate = new Date(2025, 2, 16, 0, 0, 0).getTime();
+        function updateCountdown() {
+            let now = new Date().getTime();
+            let timeLeft = birthdayDate - now;
+            let days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            let hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            let minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            let seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+            document.getElementById("countdown").innerHTML = `⏳ ${days} Days ${hours} Hours ${minutes} Minutes ${seconds} Seconds Left!`;
+        }
+        setInterval(updateCountdown, 1000);
+
+        function showSurprise() {
+            let loveMessages = [
+                "💖 You are my everything! Happy Birthday, my love! 💕",
+                "💋 Every moment with you is magical. I love you endlessly! 😘",
+                "🌹 You make my world brighter every day! Happy Birthday, my heart! ❤️",
+                "🎉 Happy Birthday to the most amazing person in my life! 🥰",
+                "💕 My love for you grows stronger with every heartbeat! 💘"
+            ];
+            document.getElementById("popup-message").innerHTML = loveMessages[Math.floor(Math.random() * loveMessages.length)];
+            showPopup();
+            createFireworks();
+        }
+
+        function showPopup() {
+            let popup = document.getElementById("love-popup");
+            popup.style.display = "block";
+            setTimeout(() => { popup.style.opacity = "1"; popup.style.transform = "translate(-50%, -50%) scale(1)"; }, 50);
+        }
+
+        function closePopup() {
+            let popup = document.getElementById("love-popup");
+            popup.style.opacity = "0";
+            popup.style.transform = "translate(-50%, -50%) scale(0.5)";
+            setTimeout(() => { popup.style.display = "none"; }, 300);
+        }
+
+        function openLoveLetter() {
+            let loveLetter = `<html><head><title>💌 Love Letter</title></head><body style="text-align:center;font-family:Arial;padding:50px;background:#fff5f8;">
+                <h2>💖 My Love,</h2><p>You are the light in my life and the reason for my happiness. Every moment with you is a dream come true. Happy Birthday! 🎂</p>
+                <p>May your day be filled with endless love and joy. You deserve the best! ❤️</p>
+                <button onclick="window.close()" style="padding:10px 20px;background:pink;border:none;font-size:16px;">Close</button>
+            </body></html>`;
+            let newWindow = window.open("", "_blank", "width=400,height=400");
+            newWindow.document.write(loveLetter);
+        }
+
+        function createHeartRain() {
+            setInterval(() => {
+                let heart = document.createElement("div");
+                heart.innerHTML = "❤️";
+                heart.className = "heart";
+                heart.style.left = Math.random() * 100 + "vw";
+                heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 5000);
+            }, 200);
+        }
+
+        function createFireworks() {
+            for (let i = 0; i < 10; i++) {
+                let firework = document.createElement("div");
+                firework.className = "firework";
+                firework.style.left = Math.random() * 100 + "vw";
+                firework.style.top = Math.random() * 50 + "vh";
+                document.body.appendChild(firework);
+                setTimeout(() => firework.remove(), 1000);
+            }
+        }
+
+        function addPhotos() {
+            let photoUrls = ["‪D:\gublu\IMG-20221103-WA0033.jpg", "photo2.jpg", "photo3.jpg", "photo4.jpg", "photo5.jpg"];
+            photoUrls.forEach(url => {
+                let img = document.createElement("img");
+                img.src = url;
+                img.className = "photo";
+                img.style.left = Math.random() * 80 + "vw";
+                img.style.top = Math.random() * 80 + "vh";
+                document.body.appendChild(img);
+            });
+        }
+
+        createHeartRain();
+        addPhotos();
+    </script>
+
+</body>
+</html>
